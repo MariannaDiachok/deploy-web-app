@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+require("source-map-support/register");
+const cdk = require("aws-cdk-lib");
+const deploy_web_app_stack_1 = require("../lib/deploy-web-app-stack");
+const hello_lambda_stack_1 = require("../lib/hello-lambda/hello-lambda-stack");
+const product_service_1 = require("../lib/product.service");
+const app = new cdk.App();
+new deploy_web_app_stack_1.DeployWebAppStack(app, 'DeployWebAppStack', {
+    /* If you don't specify 'env', this stack will be environment-agnostic.
+     * Account/Region-dependent features and context lookups will not work,
+     * but a single synthesized template can be deployed anywhere. */
+    /* Uncomment the next line to specialize this stack for the AWS Account
+     * and Region that are implied by the current CLI configuration. */
+    // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
+    /* Uncomment the next line if you know exactly what Account and Region you
+     * want to deploy the stack to. */
+    env: { account: '975050191450', region: 'us-east-1' },
+    /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
+});
+new hello_lambda_stack_1.HelloLambdaStack(app, 'HelloLambdaStack', {});
+new product_service_1.ProductStack(app, 'ProductStack', {});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGVwbG95LXdlYi1hcHAuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJkZXBsb3ktd2ViLWFwcC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFDQSx1Q0FBcUM7QUFDckMsbUNBQW1DO0FBQ25DLHNFQUFnRTtBQUNoRSwrRUFBMEU7QUFDMUUsNERBQXNEO0FBRXRELE1BQU0sR0FBRyxHQUFHLElBQUksR0FBRyxDQUFDLEdBQUcsRUFBRSxDQUFDO0FBQzFCLElBQUksd0NBQWlCLENBQUMsR0FBRyxFQUFFLG1CQUFtQixFQUFFO0lBQzlDOztxRUFFaUU7SUFFakU7dUVBQ21FO0lBQ25FLDZGQUE2RjtJQUU3RjtzQ0FDa0M7SUFDbEMsR0FBRyxFQUFFLEVBQUUsT0FBTyxFQUFFLGNBQWMsRUFBRSxNQUFNLEVBQUUsV0FBVyxFQUFFO0lBR3JELDhGQUE4RjtDQUMvRixDQUFDLENBQUM7QUFFSCxJQUFJLHFDQUFnQixDQUFDLEdBQUcsRUFBRSxrQkFBa0IsRUFBRSxFQUFFLENBQUMsQ0FBQztBQUNsRCxJQUFJLDhCQUFZLENBQUMsR0FBRyxFQUFFLGNBQWMsRUFBRSxFQUFFLENBQUMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIiMhL3Vzci9iaW4vZW52IG5vZGVcbmltcG9ydCAnc291cmNlLW1hcC1zdXBwb3J0L3JlZ2lzdGVyJztcbmltcG9ydCAqIGFzIGNkayBmcm9tICdhd3MtY2RrLWxpYic7XG5pbXBvcnQgeyBEZXBsb3lXZWJBcHBTdGFjayB9IGZyb20gJy4uL2xpYi9kZXBsb3ktd2ViLWFwcC1zdGFjayc7XG5pbXBvcnQgeyBIZWxsb0xhbWJkYVN0YWNrIH0gZnJvbSAnLi4vbGliL2hlbGxvLWxhbWJkYS9oZWxsby1sYW1iZGEtc3RhY2snO1xuaW1wb3J0IHsgUHJvZHVjdFN0YWNrIH0gZnJvbSAnLi4vbGliL3Byb2R1Y3Quc2VydmljZSc7XG5cbmNvbnN0IGFwcCA9IG5ldyBjZGsuQXBwKCk7XG5uZXcgRGVwbG95V2ViQXBwU3RhY2soYXBwLCAnRGVwbG95V2ViQXBwU3RhY2snLCB7XG4gIC8qIElmIHlvdSBkb24ndCBzcGVjaWZ5ICdlbnYnLCB0aGlzIHN0YWNrIHdpbGwgYmUgZW52aXJvbm1lbnQtYWdub3N0aWMuXG4gICAqIEFjY291bnQvUmVnaW9uLWRlcGVuZGVudCBmZWF0dXJlcyBhbmQgY29udGV4dCBsb29rdXBzIHdpbGwgbm90IHdvcmssXG4gICAqIGJ1dCBhIHNpbmdsZSBzeW50aGVzaXplZCB0ZW1wbGF0ZSBjYW4gYmUgZGVwbG95ZWQgYW55d2hlcmUuICovXG5cbiAgLyogVW5jb21tZW50IHRoZSBuZXh0IGxpbmUgdG8gc3BlY2lhbGl6ZSB0aGlzIHN0YWNrIGZvciB0aGUgQVdTIEFjY291bnRcbiAgICogYW5kIFJlZ2lvbiB0aGF0IGFyZSBpbXBsaWVkIGJ5IHRoZSBjdXJyZW50IENMSSBjb25maWd1cmF0aW9uLiAqL1xuICAvLyBlbnY6IHsgYWNjb3VudDogcHJvY2Vzcy5lbnYuQ0RLX0RFRkFVTFRfQUNDT1VOVCwgcmVnaW9uOiBwcm9jZXNzLmVudi5DREtfREVGQVVMVF9SRUdJT04gfSxcblxuICAvKiBVbmNvbW1lbnQgdGhlIG5leHQgbGluZSBpZiB5b3Uga25vdyBleGFjdGx5IHdoYXQgQWNjb3VudCBhbmQgUmVnaW9uIHlvdVxuICAgKiB3YW50IHRvIGRlcGxveSB0aGUgc3RhY2sgdG8uICovXG4gIGVudjogeyBhY2NvdW50OiAnOTc1MDUwMTkxNDUwJywgcmVnaW9uOiAndXMtZWFzdC0xJyB9LFxuXG5cbiAgLyogRm9yIG1vcmUgaW5mb3JtYXRpb24sIHNlZSBodHRwczovL2RvY3MuYXdzLmFtYXpvbi5jb20vY2RrL2xhdGVzdC9ndWlkZS9lbnZpcm9ubWVudHMuaHRtbCAqL1xufSk7XG5cbm5ldyBIZWxsb0xhbWJkYVN0YWNrKGFwcCwgJ0hlbGxvTGFtYmRhU3RhY2snLCB7fSk7XG5uZXcgUHJvZHVjdFN0YWNrKGFwcCwgJ1Byb2R1Y3RTdGFjaycsIHt9KTsiXX0=
