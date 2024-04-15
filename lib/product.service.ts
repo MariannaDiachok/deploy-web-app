@@ -43,7 +43,11 @@ export class ProductStack extends cdk.Stack {
       });
 
       const getProductById = new apigateway.LambdaIntegration(lambdaFunction, {});
-      const productResource = productsListResource.addResource('{id}')
+      const productResource = productsListResource.addResource('{id}');
+      productResource.addCorsPreflight({
+        allowOrigins: ['https://dz48wttf1vpfs.cloudfront.net/'],
+        allowMethods: ['GET'],
+      });
       productResource.addMethod('GET', getProductById, {
         methodResponses: [{ statusCode: '200' }]
       })
