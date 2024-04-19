@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/7fafdf4b46a4267133fb5797e7adfc68e0d869e2204cde90f76f1c8e502485ea.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/768cfb63930a29e70eb40bd132d1faff8fbd69900c8f2a7c2bcb23076f5259cb.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -181,126 +181,6 @@
       },
       "displayName": "DeployWebAppStack"
     },
-    "HelloLambdaStack.assets": {
-      "type": "cdk:asset-manifest",
-      "properties": {
-        "file": "HelloLambdaStack.assets.json",
-        "requiresBootstrapStackVersion": 6,
-        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
-      }
-    },
-    "HelloLambdaStack": {
-      "type": "aws:cloudformation:stack",
-      "environment": "aws://unknown-account/unknown-region",
-      "properties": {
-        "templateFile": "HelloLambdaStack.template.json",
-        "terminationProtection": false,
-        "validateOnSynth": false,
-        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
-        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/874edc7da64e7f6610a2acf6764ac7c37541a08a3218fab2dfe676ba38c9f40d.json",
-        "requiresBootstrapStackVersion": 6,
-        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
-        "additionalDependencies": [
-          "HelloLambdaStack.assets"
-        ],
-        "lookupRole": {
-          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
-          "requiresBootstrapStackVersion": 8,
-          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
-        }
-      },
-      "dependencies": [
-        "HelloLambdaStack.assets"
-      ],
-      "metadata": {
-        "/HelloLambdaStack/lambda-function/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "lambdafunctionServiceRoleC60A9A75"
-          }
-        ],
-        "/HelloLambdaStack/lambda-function/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "lambdafunction841552AF"
-          }
-        ],
-        "/HelloLambdaStack/my-api/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "myapi4C7BF186"
-          }
-        ],
-        "/HelloLambdaStack/my-api/Deployment/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "myapiDeployment92F2CB49561080c6efbb0bfb33d2d38d65468b71"
-          }
-        ],
-        "/HelloLambdaStack/my-api/DeploymentStage.prod/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "myapiDeploymentStageprod298F01AF"
-          }
-        ],
-        "/HelloLambdaStack/my-api/Endpoint": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "myapiEndpoint3628AFE3"
-          }
-        ],
-        "/HelloLambdaStack/my-api/Default/hello/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "myapihelloC0221829"
-          }
-        ],
-        "/HelloLambdaStack/my-api/Default/hello/GET/ApiPermission.HelloLambdaStackmyapi753FEE88.GET..hello": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "myapihelloGETApiPermissionHelloLambdaStackmyapi753FEE88GEThelloD3B44975"
-          }
-        ],
-        "/HelloLambdaStack/my-api/Default/hello/GET/ApiPermission.Test.HelloLambdaStackmyapi753FEE88.GET..hello": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "myapihelloGETApiPermissionTestHelloLambdaStackmyapi753FEE88GEThello0A35DC0A"
-          }
-        ],
-        "/HelloLambdaStack/my-api/Default/hello/GET/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "myapihelloGETD2CD4BC9"
-          }
-        ],
-        "/HelloLambdaStack/CDKMetadata/Default": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CDKMetadata"
-          }
-        ],
-        "/HelloLambdaStack/CDKMetadata/Condition": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CDKMetadataAvailable"
-          }
-        ],
-        "/HelloLambdaStack/BootstrapVersion": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "BootstrapVersion"
-          }
-        ],
-        "/HelloLambdaStack/CheckBootstrapVersion": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CheckBootstrapVersion"
-          }
-        ]
-      },
-      "displayName": "HelloLambdaStack"
-    },
     "ProductStack.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
@@ -318,7 +198,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/dc1badb6a8d1d7d15457e2befce8287dc117b0ef24c2cb93955930af77769d80.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/0a4a3d767118d6eccaa805e5206c68fae0507a1bc97272d5ed9dede388cca66f.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -355,7 +235,7 @@
         "/ProductStack/product-api/Deployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "productapiDeployment00EA80B65a6ab0df790f8c7a8bdac356b163b0dc"
+            "data": "productapiDeployment00EA80B6657eeba9db6c50e133840a4aa74727fd"
           }
         ],
         "/ProductStack/product-api/DeploymentStage.prod/Resource": [
