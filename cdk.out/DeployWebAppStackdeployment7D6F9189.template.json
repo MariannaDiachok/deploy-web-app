@@ -159,7 +159,7 @@
      }
     ],
     "SourceObjectKeys": [
-     "9dc97946ad1f49c2332bea0c344b5df10bade9e69ea5fd815784684491231683.zip"
+     "0243cf63552f1d7ebbaeb1cd3dbf8d11dc9f954064d7ba8df5b2e3f7afd5df65.zip"
     ],
     "DestinationBucketName": {
      "Ref": "FrontendBucketEFE2E19C"

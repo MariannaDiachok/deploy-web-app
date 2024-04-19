@@ -41,7 +41,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "f4b9a37668c042beab15b565dadc5bcb010c51e2acfa0597d78f1de6f611c654.zip"
+     "S3Key": "bcb9f56189fca12aceed486c66952319b8ee52d7193c462427b5079742e25b63.zip"
     },
     "Handler": "handler.main",
     "MemorySize": 1024,
@@ -59,7 +59,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "ProductStack/lambda-function/Resource",
-    "aws:asset:path": "asset.f4b9a37668c042beab15b565dadc5bcb010c51e2acfa0597d78f1de6f611c654",
+    "aws:asset:path": "asset.bcb9f56189fca12aceed486c66952319b8ee52d7193c462427b5079742e25b63",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -74,7 +74,7 @@
     "aws:cdk:path": "ProductStack/product-api/Resource"
    }
   },
-  "productapiDeployment00EA80B6657eeba9db6c50e133840a4aa74727fd": {
+  "productapiDeployment00EA80B65a6ab0df790f8c7a8bdac356b163b0dc": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
     "Description": "This API serves the Lambda functions.",
@@ -97,7 +97,7 @@
    "Type": "AWS::ApiGateway::Stage",
    "Properties": {
     "DeploymentId": {
-     "Ref": "productapiDeployment00EA80B6657eeba9db6c50e133840a4aa74727fd"
+     "Ref": "productapiDeployment00EA80B65a6ab0df790f8c7a8bdac356b163b0dc"
     },
     "RestApiId": {
      "Ref": "productapiADAE6246"
@@ -219,20 +219,13 @@
      "IntegrationHttpMethod": "POST",
      "IntegrationResponses": [
       {
-       "ResponseParameters": {
-        "method.response.header.Access-Control-Allow-Headers": "'Content-Type'",
-        "method.response.header.Access-Control-Allow-Origin": "'https://dz48wttf1vpfs.cloudfront.net'"
-       },
-       "ResponseTemplates": {
-        "application/json": "$util.parseJson($input.json('$.body'))"
-       },
        "StatusCode": "200"
       }
      ],
      "RequestTemplates": {
       "application/json": "{ \"message\": \"$input.params('message')\" }"
      },
-     "Type": "AWS",
+     "Type": "AWS_PROXY",
      "Uri": {
       "Fn::Join": [
        "",
@@ -283,10 +276,10 @@
      "IntegrationResponses": [
       {
        "ResponseParameters": {
-        "method.response.header.Access-Control-Allow-Headers": "'Content-Type'",
-        "method.response.header.Access-Control-Allow-Origin": "'https://dz48wttf1vpfs.cloudfront.net'",
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'https://dz48wttf1vpfs.cloudfront.net/'",
         "method.response.header.Vary": "'Origin'",
-        "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'"
+        "method.response.header.Access-Control-Allow-Methods": "'GET'"
        },
        "StatusCode": "204"
       }
@@ -424,19 +417,7 @@
     "HttpMethod": "GET",
     "Integration": {
      "IntegrationHttpMethod": "POST",
-     "IntegrationResponses": [
-      {
-       "ResponseParameters": {
-        "method.response.header.Access-Control-Allow-Headers": "'Content-Type'",
-        "method.response.header.Access-Control-Allow-Origin": "'https://dz48wttf1vpfs.cloudfront.net'"
-       },
-       "ResponseTemplates": {
-        "application/json": "$util.parseJson($input.json('$.body'))"
-       },
-       "StatusCode": "200"
-      }
-     ],
-     "Type": "AWS",
+     "Type": "AWS_PROXY",
      "Uri": {
       "Fn::Join": [
        "",
