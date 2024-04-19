@@ -185,14 +185,14 @@ var environment = {
     product: "https://.execute-api.eu-west-1.amazonaws.com/dev",
     order: "https://.execute-api.eu-west-1.amazonaws.com/dev",
     import: "https://.execute-api.eu-west-1.amazonaws.com/dev",
-    bff: "https://.execute-api.eu-west-1.amazonaws.com/dev",
+    bff: "https://sw1eix1jnj.execute-api.us-east-1.amazonaws.com/prod",
     cart: "https://.execute-api.eu-west-1.amazonaws.com/dev"
   },
   apiEndpointsEnabled: {
     product: false,
     order: false,
     import: false,
-    bff: false,
+    bff: true,
     cart: false
   }
 };
@@ -2067,7 +2067,7 @@ var _HeaderComponent = class _HeaderComponent {
 _HeaderComponent.\u0275fac = function HeaderComponent_Factory(t) {
   return new (t || _HeaderComponent)();
 };
-_HeaderComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HeaderComponent, selectors: [["app-header"]], standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 16, vars: 2, consts: [["menu", "matMenu"], ["color", "warn"], ["routerLink", "/", "matTooltip", "Open main page", 1, "home-link"], [1, "d-flex", "flex-fill"], ["matTooltip", "Open account tab", "mat-icon-button", "", 3, "matMenuTriggerFor"], ["routerLink", "cart", "matTooltip", "Go to cart", "mat-icon-button", ""], ["matBadgeColor", "accent", 3, "matBadge"], ["routerLink", "admin/orders", "mat-menu-item", ""], ["routerLink", "admin/products", "mat-menu-item", ""]], template: function HeaderComponent_Template(rf, ctx) {
+_HeaderComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HeaderComponent, selectors: [["app-header"]], standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 16, vars: 2, consts: [["menu", "matMenu"], ["color", "warn"], ["routerLink", "/", "matTooltip", "Open main page", 1, "home-link"], [1, "d-flex", "flex-fill"], ["matTooltip", "Open account menu", "mat-icon-button", "", 3, "matMenuTriggerFor"], ["routerLink", "cart", "matTooltip", "Go to cart", "mat-icon-button", ""], ["matBadgeColor", "accent", 3, "matBadge"], ["routerLink", "admin/orders", "mat-menu-item", ""], ["routerLink", "admin/products", "mat-menu-item", ""]], template: function HeaderComponent_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "mat-toolbar", 1)(1, "a", 2);
     \u0275\u0275text(2, "E-shop");
