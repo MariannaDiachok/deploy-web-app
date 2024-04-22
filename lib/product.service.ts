@@ -1,51 +1,118 @@
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as cdk from 'aws-cdk-lib';
-import * as path from 'path';
+import { StackProps, Stack, Duration } from 'aws-cdk-lib';
+import { LambdaIntegration, RestApi } from 'aws-cdk-lib/aws-apigateway';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Construct } from 'constructs';
-import * as apigateway from "aws-cdk-lib/aws-apigateway";
+import * as path from 'path';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 
-export class ProductStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+export class ProductStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const lambdaFunction = new lambda.Function(this, 'lambda-function', {
-        runtime: lambda.Runtime.NODEJS_20_X,
-        memorySize: 1024,
-        timeout: cdk.Duration.seconds(5),
-        handler: 'handler.main',
-        code: lambda.Code.fromAsset(path.join(__dirname, './')),
-      });
+    const lambdaProductsList = new NodejsFunction(this, 'lambda-product-list', {
+      functionName: 'getProductList',
+      entry: path.resolve(__dirname, '../src/products/products.ts'),
+      runtime: lambda.Runtime.NODEJS_18_X,
+      memorySize: 1024,
+      timeout: Duration.seconds(5),
+      handler: 'getProductList',
+      bundling: {
+        target: 'esnext'
+      }
+    });
 
-      const api = new apigateway.RestApi(this, "product-api", {
-        restApiName: "Products API Gateway",
-        description: "This API serves the Lambda functions."
-      });
+    const lambdaProductsById = new NodejsFunction(this, 'lambda-product-by-id', {
+      functionName: 'getProductById',
+      entry: path.resolve(__dirname, '../src/products/products.ts'),
+      runtime: lambda.Runtime.NODEJS_18_X,
+      memorySize: 1024,
+      timeout: Duration.seconds(5),
+      handler: 'getProductById',
+      bundling: {
+        target: 'esnext'
+      }
+    });
 
-      const getProductsList = new apigateway.LambdaIntegration(lambdaFunction, {
-        requestTemplates: {
-            "application/json":
-              `{ "message": "$input.params('message')" }`
-          },
-        integrationResponses: [
+
+    const productsApi = new RestApi(this, "products-api", {
+      restApiName: "Products API Gateway",
+      description: "This Products-API serves the Lambda functions."
+    });
+
+    const productsFromLambdaIntegration = new LambdaIntegration(lambdaProductsList, {
+
+      integrationResponses: [
         {
           statusCode: '200',
+          responseParameters: {
+            'method.response.header.Access-Control-Allow-Headers': "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+            'method.response.header.Access-Control-Allow-Origin': "'https://dz48wttf1vpfs.cloudfront.net'",
+            'method.response.header.Access-Control-Allow-Credentials': "'true'",
+            'method.response.header.Access-Control-Allow-Methods': "'OPTIONS,GET,PUT,POST,DELETE'",
+          },
+          responseTemplates: {
+            'application/json': "$util.parseJson($input.json('$.body'))"
+          }
         }
       ],
-        proxy: true,
-      });
-      const productsListResource = api.root.addResource("products");
-      productsListResource.addMethod('GET', getProductsList, {
-        methodResponses: [{ statusCode: '200' }]
-      });
-      productsListResource.addCorsPreflight({
-        allowOrigins: ['https://dz48wttf1vpfs.cloudfront.net/'],
-        allowMethods: ['GET'],
-      });
+      proxy: false,
+    });
 
-      const getProductById = new apigateway.LambdaIntegration(lambdaFunction, {});
-      const productResource = productsListResource.addResource('{id}')
-      productResource.addMethod('GET', getProductById, {
-        methodResponses: [{ statusCode: '200' }]
-      })
+    const productsResource = productsApi.root.addResource("products");
+
+    productsResource.addMethod('GET', productsFromLambdaIntegration, {
+      methodResponses: [{
+        statusCode: '200',
+        responseParameters: {
+          'method.response.header.Access-Control-Allow-Headers': true,
+          'method.response.header.Access-Control-Allow-Origin': true,
+          'method.response.header.Access-Control-Allow-Credentials': true,
+          'method.response.header.Access-Control-Allow-Methods': true,
+        }
+      }],
+    });
+
+    productsResource.addCorsPreflight({
+      allowOrigins: ['https://dz48wttf1vpfs.cloudfront.net'],
+      allowMethods: ['GET', 'OPTIONS'],
+      allowHeaders: ['Content-Type']
+    });
+
+    const productsByIdFromLambdaIntegration = new LambdaIntegration(lambdaProductsById, {
+      integrationResponses: [
+        {
+          statusCode: '200',
+          responseParameters: {
+            'method.response.header.Access-Control-Allow-Headers': "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+            'method.response.header.Access-Control-Allow-Origin': "'https://dz48wttf1vpfs.cloudfront.net'",
+            'method.response.header.Access-Control-Allow-Credentials': "'true'",
+            'method.response.header.Access-Control-Allow-Methods': "'OPTIONS,GET,PUT,POST,DELETE'",
+          },
+          responseTemplates: {
+            'application/json': "$util.parseJson($input.json('$.body'))"
+          }
+        }
+      ],
+      proxy: false,
+    });
+
+    const productByIdResource = productsResource.addResource('{product_id}')
+    productByIdResource.addMethod('GET', productsByIdFromLambdaIntegration, {
+      methodResponses: [{
+        statusCode: '200',
+        responseParameters: {
+          'method.response.header.Access-Control-Allow-Headers': true,
+          'method.response.header.Access-Control-Allow-Origin': true,
+          'method.response.header.Access-Control-Allow-Credentials': true,
+          'method.response.header.Access-Control-Allow-Methods': true
+        }
+      }]
+    })
+
+    productByIdResource.addCorsPreflight({
+      allowOrigins: ['https://dz48wttf1vpfs.cloudfront.net'],
+      allowMethods: ['GET', 'OPTIONS'],
+      allowHeaders: ['Content-Type']
+    });
   }
 }

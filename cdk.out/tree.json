@@ -680,480 +680,21 @@
           "version": "2.135.0"
         }
       },
-      "HelloLambdaStack": {
-        "id": "HelloLambdaStack",
-        "path": "HelloLambdaStack",
-        "children": {
-          "lambda-function": {
-            "id": "lambda-function",
-            "path": "HelloLambdaStack/lambda-function",
-            "children": {
-              "ServiceRole": {
-                "id": "ServiceRole",
-                "path": "HelloLambdaStack/lambda-function/ServiceRole",
-                "children": {
-                  "ImportServiceRole": {
-                    "id": "ImportServiceRole",
-                    "path": "HelloLambdaStack/lambda-function/ServiceRole/ImportServiceRole",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.135.0"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "HelloLambdaStack/lambda-function/ServiceRole/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                      "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Service": "lambda.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "managedPolicyArns": [
-                          {
-                            "Fn::Join": [
-                              "",
-                              [
-                                "arn:",
-                                {
-                                  "Ref": "AWS::Partition"
-                                },
-                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-                              ]
-                            ]
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.135.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.135.0"
-                }
-              },
-              "Code": {
-                "id": "Code",
-                "path": "HelloLambdaStack/lambda-function/Code",
-                "children": {
-                  "Stage": {
-                    "id": "Stage",
-                    "path": "HelloLambdaStack/lambda-function/Code/Stage",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.AssetStaging",
-                      "version": "2.135.0"
-                    }
-                  },
-                  "AssetBucket": {
-                    "id": "AssetBucket",
-                    "path": "HelloLambdaStack/lambda-function/Code/AssetBucket",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
-                      "version": "2.135.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
-                  "version": "2.135.0"
-                }
-              },
-              "Resource": {
-                "id": "Resource",
-                "path": "HelloLambdaStack/lambda-function/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
-                  "aws:cdk:cloudformation:props": {
-                    "code": {
-                      "s3Bucket": {
-                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
-                      },
-                      "s3Key": "0caf2d1b7d7c40d78a63a58f056fd39359b0654f56f66aa1ad747e98914ae04e.zip"
-                    },
-                    "handler": "handler.main",
-                    "memorySize": 1024,
-                    "role": {
-                      "Fn::GetAtt": [
-                        "lambdafunctionServiceRoleC60A9A75",
-                        "Arn"
-                      ]
-                    },
-                    "runtime": "nodejs20.x",
-                    "timeout": 5
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
-                  "version": "2.135.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_lambda.Function",
-              "version": "2.135.0"
-            }
-          },
-          "my-api": {
-            "id": "my-api",
-            "path": "HelloLambdaStack/my-api",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "HelloLambdaStack/my-api/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::RestApi",
-                  "aws:cdk:cloudformation:props": {
-                    "description": "This API serves the Lambda functions.",
-                    "name": "My API Gateway"
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.CfnRestApi",
-                  "version": "2.135.0"
-                }
-              },
-              "Deployment": {
-                "id": "Deployment",
-                "path": "HelloLambdaStack/my-api/Deployment",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "HelloLambdaStack/my-api/Deployment/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
-                      "aws:cdk:cloudformation:props": {
-                        "description": "This API serves the Lambda functions.",
-                        "restApiId": {
-                          "Ref": "myapi4C7BF186"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigateway.CfnDeployment",
-                      "version": "2.135.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.Deployment",
-                  "version": "2.135.0"
-                }
-              },
-              "DeploymentStage.prod": {
-                "id": "DeploymentStage.prod",
-                "path": "HelloLambdaStack/my-api/DeploymentStage.prod",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "HelloLambdaStack/my-api/DeploymentStage.prod/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
-                      "aws:cdk:cloudformation:props": {
-                        "deploymentId": {
-                          "Ref": "myapiDeployment92F2CB49561080c6efbb0bfb33d2d38d65468b71"
-                        },
-                        "restApiId": {
-                          "Ref": "myapi4C7BF186"
-                        },
-                        "stageName": "prod"
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigateway.CfnStage",
-                      "version": "2.135.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.Stage",
-                  "version": "2.135.0"
-                }
-              },
-              "Endpoint": {
-                "id": "Endpoint",
-                "path": "HelloLambdaStack/my-api/Endpoint",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.CfnOutput",
-                  "version": "2.135.0"
-                }
-              },
-              "Default": {
-                "id": "Default",
-                "path": "HelloLambdaStack/my-api/Default",
-                "children": {
-                  "hello": {
-                    "id": "hello",
-                    "path": "HelloLambdaStack/my-api/Default/hello",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "HelloLambdaStack/my-api/Default/hello/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
-                          "aws:cdk:cloudformation:props": {
-                            "parentId": {
-                              "Fn::GetAtt": [
-                                "myapi4C7BF186",
-                                "RootResourceId"
-                              ]
-                            },
-                            "pathPart": "hello",
-                            "restApiId": {
-                              "Ref": "myapi4C7BF186"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
-                          "version": "2.135.0"
-                        }
-                      },
-                      "GET": {
-                        "id": "GET",
-                        "path": "HelloLambdaStack/my-api/Default/hello/GET",
-                        "children": {
-                          "ApiPermission.HelloLambdaStackmyapi753FEE88.GET..hello": {
-                            "id": "ApiPermission.HelloLambdaStackmyapi753FEE88.GET..hello",
-                            "path": "HelloLambdaStack/my-api/Default/hello/GET/ApiPermission.HelloLambdaStackmyapi753FEE88.GET..hello",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                              "aws:cdk:cloudformation:props": {
-                                "action": "lambda:InvokeFunction",
-                                "functionName": {
-                                  "Fn::GetAtt": [
-                                    "lambdafunction841552AF",
-                                    "Arn"
-                                  ]
-                                },
-                                "principal": "apigateway.amazonaws.com",
-                                "sourceArn": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":execute-api:",
-                                      {
-                                        "Ref": "AWS::Region"
-                                      },
-                                      ":",
-                                      {
-                                        "Ref": "AWS::AccountId"
-                                      },
-                                      ":",
-                                      {
-                                        "Ref": "myapi4C7BF186"
-                                      },
-                                      "/",
-                                      {
-                                        "Ref": "myapiDeploymentStageprod298F01AF"
-                                      },
-                                      "/GET/hello"
-                                    ]
-                                  ]
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                              "version": "2.135.0"
-                            }
-                          },
-                          "ApiPermission.Test.HelloLambdaStackmyapi753FEE88.GET..hello": {
-                            "id": "ApiPermission.Test.HelloLambdaStackmyapi753FEE88.GET..hello",
-                            "path": "HelloLambdaStack/my-api/Default/hello/GET/ApiPermission.Test.HelloLambdaStackmyapi753FEE88.GET..hello",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                              "aws:cdk:cloudformation:props": {
-                                "action": "lambda:InvokeFunction",
-                                "functionName": {
-                                  "Fn::GetAtt": [
-                                    "lambdafunction841552AF",
-                                    "Arn"
-                                  ]
-                                },
-                                "principal": "apigateway.amazonaws.com",
-                                "sourceArn": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":execute-api:",
-                                      {
-                                        "Ref": "AWS::Region"
-                                      },
-                                      ":",
-                                      {
-                                        "Ref": "AWS::AccountId"
-                                      },
-                                      ":",
-                                      {
-                                        "Ref": "myapi4C7BF186"
-                                      },
-                                      "/test-invoke-stage/GET/hello"
-                                    ]
-                                  ]
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                              "version": "2.135.0"
-                            }
-                          },
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "HelloLambdaStack/my-api/Default/hello/GET/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
-                              "aws:cdk:cloudformation:props": {
-                                "authorizationType": "NONE",
-                                "httpMethod": "GET",
-                                "integration": {
-                                  "type": "AWS_PROXY",
-                                  "uri": {
-                                    "Fn::Join": [
-                                      "",
-                                      [
-                                        "arn:",
-                                        {
-                                          "Ref": "AWS::Partition"
-                                        },
-                                        ":apigateway:",
-                                        {
-                                          "Ref": "AWS::Region"
-                                        },
-                                        ":lambda:path/2015-03-31/functions/",
-                                        {
-                                          "Fn::GetAtt": [
-                                            "lambdafunction841552AF",
-                                            "Arn"
-                                          ]
-                                        },
-                                        "/invocations"
-                                      ]
-                                    ]
-                                  },
-                                  "integrationHttpMethod": "POST"
-                                },
-                                "resourceId": {
-                                  "Ref": "myapihelloC0221829"
-                                },
-                                "restApiId": {
-                                  "Ref": "myapi4C7BF186"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
-                              "version": "2.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
-                          "version": "2.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
-                      "version": "2.135.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigateway.ResourceBase",
-                  "version": "2.135.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_apigateway.RestApi",
-              "version": "2.135.0"
-            }
-          },
-          "CDKMetadata": {
-            "id": "CDKMetadata",
-            "path": "HelloLambdaStack/CDKMetadata",
-            "children": {
-              "Default": {
-                "id": "Default",
-                "path": "HelloLambdaStack/CDKMetadata/Default",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.CfnResource",
-                  "version": "2.135.0"
-                }
-              },
-              "Condition": {
-                "id": "Condition",
-                "path": "HelloLambdaStack/CDKMetadata/Condition",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.CfnCondition",
-                  "version": "2.135.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "constructs.Construct",
-              "version": "10.3.0"
-            }
-          },
-          "BootstrapVersion": {
-            "id": "BootstrapVersion",
-            "path": "HelloLambdaStack/BootstrapVersion",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnParameter",
-              "version": "2.135.0"
-            }
-          },
-          "CheckBootstrapVersion": {
-            "id": "CheckBootstrapVersion",
-            "path": "HelloLambdaStack/CheckBootstrapVersion",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnRule",
-              "version": "2.135.0"
-            }
-          }
-        },
-        "constructInfo": {
-          "fqn": "aws-cdk-lib.Stack",
-          "version": "2.135.0"
-        }
-      },
       "ProductStack": {
         "id": "ProductStack",
         "path": "ProductStack",
         "children": {
-          "lambda-function": {
-            "id": "lambda-function",
-            "path": "ProductStack/lambda-function",
+          "lambda-product-list": {
+            "id": "lambda-product-list",
+            "path": "ProductStack/lambda-product-list",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "ProductStack/lambda-function/ServiceRole",
+                "path": "ProductStack/lambda-product-list/ServiceRole",
                 "children": {
                   "ImportServiceRole": {
                     "id": "ImportServiceRole",
-                    "path": "ProductStack/lambda-function/ServiceRole/ImportServiceRole",
+                    "path": "ProductStack/lambda-product-list/ServiceRole/ImportServiceRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.135.0"
@@ -1161,7 +702,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "ProductStack/lambda-function/ServiceRole/Resource",
+                    "path": "ProductStack/lambda-product-list/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -1206,11 +747,11 @@
               },
               "Code": {
                 "id": "Code",
-                "path": "ProductStack/lambda-function/Code",
+                "path": "ProductStack/lambda-product-list/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "ProductStack/lambda-function/Code/Stage",
+                    "path": "ProductStack/lambda-product-list/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.135.0"
@@ -1218,7 +759,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "ProductStack/lambda-function/Code/AssetBucket",
+                    "path": "ProductStack/lambda-product-list/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.135.0"
@@ -1232,7 +773,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "ProductStack/lambda-function/Resource",
+                "path": "ProductStack/lambda-product-list/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
@@ -1240,17 +781,23 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "bcb9f56189fca12aceed486c66952319b8ee52d7193c462427b5079742e25b63.zip"
+                      "s3Key": "0ac2ba35c0bd4a91fb0c1142b39f066d83e9aabd54f896ecdbccd41d04849658.zip"
                     },
-                    "handler": "handler.main",
+                    "environment": {
+                      "variables": {
+                        "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+                      }
+                    },
+                    "functionName": "getProductList",
+                    "handler": "index.getProductList",
                     "memorySize": 1024,
                     "role": {
                       "Fn::GetAtt": [
-                        "lambdafunctionServiceRoleC60A9A75",
+                        "lambdaproductlistServiceRoleBE066A19",
                         "Arn"
                       ]
                     },
-                    "runtime": "nodejs20.x",
+                    "runtime": "nodejs18.x",
                     "timeout": 5
                   }
                 },
@@ -1261,21 +808,149 @@
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "fqn": "aws-cdk-lib.aws_lambda_nodejs.NodejsFunction",
               "version": "2.135.0"
             }
           },
-          "product-api": {
-            "id": "product-api",
-            "path": "ProductStack/product-api",
+          "lambda-product-by-id": {
+            "id": "lambda-product-by-id",
+            "path": "ProductStack/lambda-product-by-id",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "ProductStack/lambda-product-by-id/ServiceRole",
+                "children": {
+                  "ImportServiceRole": {
+                    "id": "ImportServiceRole",
+                    "path": "ProductStack/lambda-product-by-id/ServiceRole/ImportServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.135.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "ProductStack/lambda-product-by-id/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.135.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.135.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "ProductStack/lambda-product-by-id/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "ProductStack/lambda-product-by-id/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.135.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "ProductStack/lambda-product-by-id/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.135.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.135.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "ProductStack/lambda-product-by-id/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                      },
+                      "s3Key": "0ac2ba35c0bd4a91fb0c1142b39f066d83e9aabd54f896ecdbccd41d04849658.zip"
+                    },
+                    "environment": {
+                      "variables": {
+                        "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+                      }
+                    },
+                    "functionName": "getProductById",
+                    "handler": "index.getProductById",
+                    "memorySize": 1024,
+                    "role": {
+                      "Fn::GetAtt": [
+                        "lambdaproductbyidServiceRoleB9829211",
+                        "Arn"
+                      ]
+                    },
+                    "runtime": "nodejs18.x",
+                    "timeout": 5
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.135.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda_nodejs.NodejsFunction",
+              "version": "2.135.0"
+            }
+          },
+          "products-api": {
+            "id": "products-api",
+            "path": "ProductStack/products-api",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "ProductStack/product-api/Resource",
+                "path": "ProductStack/products-api/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ApiGateway::RestApi",
                   "aws:cdk:cloudformation:props": {
-                    "description": "This API serves the Lambda functions.",
+                    "description": "This Products-API serves the Lambda functions.",
                     "name": "Products API Gateway"
                   }
                 },
@@ -1286,17 +961,17 @@
               },
               "Deployment": {
                 "id": "Deployment",
-                "path": "ProductStack/product-api/Deployment",
+                "path": "ProductStack/products-api/Deployment",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "ProductStack/product-api/Deployment/Resource",
+                    "path": "ProductStack/products-api/Deployment/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
                       "aws:cdk:cloudformation:props": {
-                        "description": "This API serves the Lambda functions.",
+                        "description": "This Products-API serves the Lambda functions.",
                         "restApiId": {
-                          "Ref": "productapiADAE6246"
+                          "Ref": "productsapi7D590FA8"
                         }
                       }
                     },
@@ -1313,19 +988,19 @@
               },
               "DeploymentStage.prod": {
                 "id": "DeploymentStage.prod",
-                "path": "ProductStack/product-api/DeploymentStage.prod",
+                "path": "ProductStack/products-api/DeploymentStage.prod",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "ProductStack/product-api/DeploymentStage.prod/Resource",
+                    "path": "ProductStack/products-api/DeploymentStage.prod/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
                       "aws:cdk:cloudformation:props": {
                         "deploymentId": {
-                          "Ref": "productapiDeployment00EA80B65a6ab0df790f8c7a8bdac356b163b0dc"
+                          "Ref": "productsapiDeployment21EB96E44a2c73789dc0532a3dc7a1a97fb66383"
                         },
                         "restApiId": {
-                          "Ref": "productapiADAE6246"
+                          "Ref": "productsapi7D590FA8"
                         },
                         "stageName": "prod"
                       }
@@ -1343,7 +1018,7 @@
               },
               "Endpoint": {
                 "id": "Endpoint",
-                "path": "ProductStack/product-api/Endpoint",
+                "path": "ProductStack/products-api/Endpoint",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnOutput",
                   "version": "2.135.0"
@@ -1351,27 +1026,27 @@
               },
               "Default": {
                 "id": "Default",
-                "path": "ProductStack/product-api/Default",
+                "path": "ProductStack/products-api/Default",
                 "children": {
                   "products": {
                     "id": "products",
-                    "path": "ProductStack/product-api/Default/products",
+                    "path": "ProductStack/products-api/Default/products",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "ProductStack/product-api/Default/products/Resource",
+                        "path": "ProductStack/products-api/Default/products/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
                           "aws:cdk:cloudformation:props": {
                             "parentId": {
                               "Fn::GetAtt": [
-                                "productapiADAE6246",
+                                "productsapi7D590FA8",
                                 "RootResourceId"
                               ]
                             },
                             "pathPart": "products",
                             "restApiId": {
-                              "Ref": "productapiADAE6246"
+                              "Ref": "productsapi7D590FA8"
                             }
                           }
                         },
@@ -1382,18 +1057,18 @@
                       },
                       "GET": {
                         "id": "GET",
-                        "path": "ProductStack/product-api/Default/products/GET",
+                        "path": "ProductStack/products-api/Default/products/GET",
                         "children": {
-                          "ApiPermission.ProductStackproductapi4D9C8A91.GET..products": {
-                            "id": "ApiPermission.ProductStackproductapi4D9C8A91.GET..products",
-                            "path": "ProductStack/product-api/Default/products/GET/ApiPermission.ProductStackproductapi4D9C8A91.GET..products",
+                          "ApiPermission.ProductStackproductsapiC3E8A07D.GET..products": {
+                            "id": "ApiPermission.ProductStackproductsapiC3E8A07D.GET..products",
+                            "path": "ProductStack/products-api/Default/products/GET/ApiPermission.ProductStackproductsapiC3E8A07D.GET..products",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                               "aws:cdk:cloudformation:props": {
                                 "action": "lambda:InvokeFunction",
                                 "functionName": {
                                   "Fn::GetAtt": [
-                                    "lambdafunction841552AF",
+                                    "lambdaproductlistBED16E08",
                                     "Arn"
                                   ]
                                 },
@@ -1416,11 +1091,11 @@
                                       },
                                       ":",
                                       {
-                                        "Ref": "productapiADAE6246"
+                                        "Ref": "productsapi7D590FA8"
                                       },
                                       "/",
                                       {
-                                        "Ref": "productapiDeploymentStageprod08A40B89"
+                                        "Ref": "productsapiDeploymentStageprod1993B0A7"
                                       },
                                       "/GET/products"
                                     ]
@@ -1433,16 +1108,16 @@
                               "version": "2.135.0"
                             }
                           },
-                          "ApiPermission.Test.ProductStackproductapi4D9C8A91.GET..products": {
-                            "id": "ApiPermission.Test.ProductStackproductapi4D9C8A91.GET..products",
-                            "path": "ProductStack/product-api/Default/products/GET/ApiPermission.Test.ProductStackproductapi4D9C8A91.GET..products",
+                          "ApiPermission.Test.ProductStackproductsapiC3E8A07D.GET..products": {
+                            "id": "ApiPermission.Test.ProductStackproductsapiC3E8A07D.GET..products",
+                            "path": "ProductStack/products-api/Default/products/GET/ApiPermission.Test.ProductStackproductsapiC3E8A07D.GET..products",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                               "aws:cdk:cloudformation:props": {
                                 "action": "lambda:InvokeFunction",
                                 "functionName": {
                                   "Fn::GetAtt": [
-                                    "lambdafunction841552AF",
+                                    "lambdaproductlistBED16E08",
                                     "Arn"
                                   ]
                                 },
@@ -1465,7 +1140,7 @@
                                       },
                                       ":",
                                       {
-                                        "Ref": "productapiADAE6246"
+                                        "Ref": "productsapi7D590FA8"
                                       },
                                       "/test-invoke-stage/GET/products"
                                     ]
@@ -1480,14 +1155,14 @@
                           },
                           "Resource": {
                             "id": "Resource",
-                            "path": "ProductStack/product-api/Default/products/GET/Resource",
+                            "path": "ProductStack/products-api/Default/products/GET/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
                               "aws:cdk:cloudformation:props": {
                                 "authorizationType": "NONE",
                                 "httpMethod": "GET",
                                 "integration": {
-                                  "type": "AWS_PROXY",
+                                  "type": "AWS",
                                   "uri": {
                                     "Fn::Join": [
                                       "",
@@ -1503,7 +1178,7 @@
                                         ":lambda:path/2015-03-31/functions/",
                                         {
                                           "Fn::GetAtt": [
-                                            "lambdafunction841552AF",
+                                            "lambdaproductlistBED16E08",
                                             "Arn"
                                           ]
                                         },
@@ -1512,25 +1187,37 @@
                                     ]
                                   },
                                   "integrationHttpMethod": "POST",
-                                  "requestTemplates": {
-                                    "application/json": "{ \"message\": \"$input.params('message')\" }"
-                                  },
                                   "integrationResponses": [
                                     {
-                                      "statusCode": "200"
+                                      "statusCode": "200",
+                                      "responseParameters": {
+                                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                                        "method.response.header.Access-Control-Allow-Origin": "'https://dz48wttf1vpfs.cloudfront.net'",
+                                        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+                                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE'"
+                                      },
+                                      "responseTemplates": {
+                                        "application/json": "$util.parseJson($input.json('$.body'))"
+                                      }
                                     }
                                   ]
                                 },
                                 "methodResponses": [
                                   {
-                                    "statusCode": "200"
+                                    "statusCode": "200",
+                                    "responseParameters": {
+                                      "method.response.header.Access-Control-Allow-Headers": true,
+                                      "method.response.header.Access-Control-Allow-Origin": true,
+                                      "method.response.header.Access-Control-Allow-Credentials": true,
+                                      "method.response.header.Access-Control-Allow-Methods": true
+                                    }
                                   }
                                 ],
                                 "resourceId": {
-                                  "Ref": "productapiproductsEDB48C90"
+                                  "Ref": "productsapiproductsD87799F9"
                                 },
                                 "restApiId": {
-                                  "Ref": "productapiADAE6246"
+                                  "Ref": "productsapi7D590FA8"
                                 }
                               }
                             },
@@ -1547,11 +1234,11 @@
                       },
                       "OPTIONS": {
                         "id": "OPTIONS",
-                        "path": "ProductStack/product-api/Default/products/OPTIONS",
+                        "path": "ProductStack/products-api/Default/products/OPTIONS",
                         "children": {
                           "Resource": {
                             "id": "Resource",
-                            "path": "ProductStack/product-api/Default/products/OPTIONS/Resource",
+                            "path": "ProductStack/products-api/Default/products/OPTIONS/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
                               "aws:cdk:cloudformation:props": {
@@ -1567,10 +1254,10 @@
                                     {
                                       "statusCode": "204",
                                       "responseParameters": {
-                                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                                        "method.response.header.Access-Control-Allow-Origin": "'https://dz48wttf1vpfs.cloudfront.net/'",
+                                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type'",
+                                        "method.response.header.Access-Control-Allow-Origin": "'https://dz48wttf1vpfs.cloudfront.net'",
                                         "method.response.header.Vary": "'Origin'",
-                                        "method.response.header.Access-Control-Allow-Methods": "'GET'"
+                                        "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'"
                                       }
                                     }
                                   ]
@@ -1587,10 +1274,10 @@
                                   }
                                 ],
                                 "resourceId": {
-                                  "Ref": "productapiproductsEDB48C90"
+                                  "Ref": "productsapiproductsD87799F9"
                                 },
                                 "restApiId": {
-                                  "Ref": "productapiADAE6246"
+                                  "Ref": "productsapi7D590FA8"
                                 }
                               }
                             },
@@ -1605,22 +1292,22 @@
                           "version": "2.135.0"
                         }
                       },
-                      "{id}": {
-                        "id": "{id}",
-                        "path": "ProductStack/product-api/Default/products/{id}",
+                      "{product_id}": {
+                        "id": "{product_id}",
+                        "path": "ProductStack/products-api/Default/products/{product_id}",
                         "children": {
                           "Resource": {
                             "id": "Resource",
-                            "path": "ProductStack/product-api/Default/products/{id}/Resource",
+                            "path": "ProductStack/products-api/Default/products/{product_id}/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
                               "aws:cdk:cloudformation:props": {
                                 "parentId": {
-                                  "Ref": "productapiproductsEDB48C90"
+                                  "Ref": "productsapiproductsD87799F9"
                                 },
-                                "pathPart": "{id}",
+                                "pathPart": "{product_id}",
                                 "restApiId": {
-                                  "Ref": "productapiADAE6246"
+                                  "Ref": "productsapi7D590FA8"
                                 }
                               }
                             },
@@ -1631,18 +1318,18 @@
                           },
                           "GET": {
                             "id": "GET",
-                            "path": "ProductStack/product-api/Default/products/{id}/GET",
+                            "path": "ProductStack/products-api/Default/products/{product_id}/GET",
                             "children": {
-                              "ApiPermission.ProductStackproductapi4D9C8A91.GET..products.{id}": {
-                                "id": "ApiPermission.ProductStackproductapi4D9C8A91.GET..products.{id}",
-                                "path": "ProductStack/product-api/Default/products/{id}/GET/ApiPermission.ProductStackproductapi4D9C8A91.GET..products.{id}",
+                              "ApiPermission.ProductStackproductsapiC3E8A07D.GET..products.{product_id}": {
+                                "id": "ApiPermission.ProductStackproductsapiC3E8A07D.GET..products.{product_id}",
+                                "path": "ProductStack/products-api/Default/products/{product_id}/GET/ApiPermission.ProductStackproductsapiC3E8A07D.GET..products.{product_id}",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                                   "aws:cdk:cloudformation:props": {
                                     "action": "lambda:InvokeFunction",
                                     "functionName": {
                                       "Fn::GetAtt": [
-                                        "lambdafunction841552AF",
+                                        "lambdaproductbyid996B6492",
                                         "Arn"
                                       ]
                                     },
@@ -1665,11 +1352,11 @@
                                           },
                                           ":",
                                           {
-                                            "Ref": "productapiADAE6246"
+                                            "Ref": "productsapi7D590FA8"
                                           },
                                           "/",
                                           {
-                                            "Ref": "productapiDeploymentStageprod08A40B89"
+                                            "Ref": "productsapiDeploymentStageprod1993B0A7"
                                           },
                                           "/GET/products/*"
                                         ]
@@ -1682,16 +1369,16 @@
                                   "version": "2.135.0"
                                 }
                               },
-                              "ApiPermission.Test.ProductStackproductapi4D9C8A91.GET..products.{id}": {
-                                "id": "ApiPermission.Test.ProductStackproductapi4D9C8A91.GET..products.{id}",
-                                "path": "ProductStack/product-api/Default/products/{id}/GET/ApiPermission.Test.ProductStackproductapi4D9C8A91.GET..products.{id}",
+                              "ApiPermission.Test.ProductStackproductsapiC3E8A07D.GET..products.{product_id}": {
+                                "id": "ApiPermission.Test.ProductStackproductsapiC3E8A07D.GET..products.{product_id}",
+                                "path": "ProductStack/products-api/Default/products/{product_id}/GET/ApiPermission.Test.ProductStackproductsapiC3E8A07D.GET..products.{product_id}",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                                   "aws:cdk:cloudformation:props": {
                                     "action": "lambda:InvokeFunction",
                                     "functionName": {
                                       "Fn::GetAtt": [
-                                        "lambdafunction841552AF",
+                                        "lambdaproductbyid996B6492",
                                         "Arn"
                                       ]
                                     },
@@ -1714,7 +1401,7 @@
                                           },
                                           ":",
                                           {
-                                            "Ref": "productapiADAE6246"
+                                            "Ref": "productsapi7D590FA8"
                                           },
                                           "/test-invoke-stage/GET/products/*"
                                         ]
@@ -1729,14 +1416,14 @@
                               },
                               "Resource": {
                                 "id": "Resource",
-                                "path": "ProductStack/product-api/Default/products/{id}/GET/Resource",
+                                "path": "ProductStack/products-api/Default/products/{product_id}/GET/Resource",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
                                   "aws:cdk:cloudformation:props": {
                                     "authorizationType": "NONE",
                                     "httpMethod": "GET",
                                     "integration": {
-                                      "type": "AWS_PROXY",
+                                      "type": "AWS",
                                       "uri": {
                                         "Fn::Join": [
                                           "",
@@ -1752,7 +1439,7 @@
                                             ":lambda:path/2015-03-31/functions/",
                                             {
                                               "Fn::GetAtt": [
-                                                "lambdafunction841552AF",
+                                                "lambdaproductbyid996B6492",
                                                 "Arn"
                                               ]
                                             },
@@ -1760,18 +1447,98 @@
                                           ]
                                         ]
                                       },
-                                      "integrationHttpMethod": "POST"
+                                      "integrationHttpMethod": "POST",
+                                      "integrationResponses": [
+                                        {
+                                          "statusCode": "200",
+                                          "responseParameters": {
+                                            "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                                            "method.response.header.Access-Control-Allow-Origin": "'https://dz48wttf1vpfs.cloudfront.net'",
+                                            "method.response.header.Access-Control-Allow-Credentials": "'true'",
+                                            "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE'"
+                                          },
+                                          "responseTemplates": {
+                                            "application/json": "$util.parseJson($input.json('$.body'))"
+                                          }
+                                        }
+                                      ]
                                     },
                                     "methodResponses": [
                                       {
-                                        "statusCode": "200"
+                                        "statusCode": "200",
+                                        "responseParameters": {
+                                          "method.response.header.Access-Control-Allow-Headers": true,
+                                          "method.response.header.Access-Control-Allow-Origin": true,
+                                          "method.response.header.Access-Control-Allow-Credentials": true,
+                                          "method.response.header.Access-Control-Allow-Methods": true
+                                        }
                                       }
                                     ],
                                     "resourceId": {
-                                      "Ref": "productapiproductsid919D299B"
+                                      "Ref": "productsapiproductsproductid3AA710FE"
                                     },
                                     "restApiId": {
-                                      "Ref": "productapiADAE6246"
+                                      "Ref": "productsapi7D590FA8"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                                  "version": "2.135.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                              "version": "2.135.0"
+                            }
+                          },
+                          "OPTIONS": {
+                            "id": "OPTIONS",
+                            "path": "ProductStack/products-api/Default/products/{product_id}/OPTIONS",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "ProductStack/products-api/Default/products/{product_id}/OPTIONS/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                                  "aws:cdk:cloudformation:props": {
+                                    "apiKeyRequired": false,
+                                    "authorizationType": "NONE",
+                                    "httpMethod": "OPTIONS",
+                                    "integration": {
+                                      "type": "MOCK",
+                                      "requestTemplates": {
+                                        "application/json": "{ statusCode: 200 }"
+                                      },
+                                      "integrationResponses": [
+                                        {
+                                          "statusCode": "204",
+                                          "responseParameters": {
+                                            "method.response.header.Access-Control-Allow-Headers": "'Content-Type'",
+                                            "method.response.header.Access-Control-Allow-Origin": "'https://dz48wttf1vpfs.cloudfront.net'",
+                                            "method.response.header.Vary": "'Origin'",
+                                            "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "methodResponses": [
+                                      {
+                                        "statusCode": "204",
+                                        "responseParameters": {
+                                          "method.response.header.Access-Control-Allow-Headers": true,
+                                          "method.response.header.Access-Control-Allow-Origin": true,
+                                          "method.response.header.Vary": true,
+                                          "method.response.header.Access-Control-Allow-Methods": true
+                                        }
+                                      }
+                                    ],
+                                    "resourceId": {
+                                      "Ref": "productsapiproductsproductid3AA710FE"
+                                    },
+                                    "restApiId": {
+                                      "Ref": "productsapi7D590FA8"
                                     }
                                   }
                                 },
