@@ -48,6 +48,10 @@ export class ProductStack extends Stack {
       partitionKey: { name: 'product_id', type: dynamo.AttributeType.STRING },
     });
 
+    // Table names created on asw console
+    const PRODUCTS_TABLE_NAME = 'Products';
+    const STOCK_TABLE_NAME = 'Stock';
+
     // DynamoDB lambdas
     const getProductsListLambda = new NodejsFunction(this, 'get-products-list-lambda', {
       functionName: 'getProductsList',
@@ -55,8 +59,8 @@ export class ProductStack extends Stack {
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'getProductsList',
       environment: {
-        PRODUCTS_TABLE_NAME: productsTable.tableName,
-        STOCK_TABLE_NAME: stockTable.tableName
+        PRODUCTS_TABLE_NAME: PRODUCTS_TABLE_NAME,
+        STOCK_TABLE_NAME: STOCK_TABLE_NAME
       }
     });
     
@@ -66,7 +70,7 @@ export class ProductStack extends Stack {
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'getProductsById',
       environment: {
-        PRODUCTS_TABLE_NAME: productsTable.tableName,
+        PRODUCTS_TABLE_NAME: PRODUCTS_TABLE_NAME,
       }
     });
 
@@ -76,7 +80,7 @@ export class ProductStack extends Stack {
       handler: 'createProduct',
       runtime: lambda.Runtime.NODEJS_18_X,
       environment: {
-        PRODUCTS_TABLE_NAME: productsTable.tableName
+        PRODUCTS_TABLE_NAME: PRODUCTS_TABLE_NAME
       }
     });
 
@@ -165,10 +169,6 @@ export class ProductStack extends Stack {
     // DynamoDB client
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     
-    // Table names
-    const PRODUCTS_TABLE_NAME = 'Products';
-    const STOCK_TABLE_NAME = 'Stock';
-    
     // Function to add product to Products table
     const addProduct = async (title: string, description: string, price: number): Promise<string> => {
         const productId = uuidv4();
@@ -218,11 +218,12 @@ export class ProductStack extends Stack {
     };
     
     main().catch(error => console.error(error)); 
-    
-    // Create product
+        
     // Grant permission to the Lambda function to write to the DynamoDB table
     productsTable.grantWriteData(createProductLambda);
+    productsTable.grantReadData(createProductLambda);
 
+    // Create product
     const createProductIntegration = new LambdaIntegration(createProductLambda,  {
       integrationResponses: [
         {
