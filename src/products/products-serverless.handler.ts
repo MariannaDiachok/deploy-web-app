@@ -1,3 +1,5 @@
+import * as AWS from 'aws-sdk';
+
 const products = [
     {
       "count": 4,
